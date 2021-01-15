@@ -43,7 +43,7 @@ class QuestionApiView(APIView):
 class QuestionPaginatorApiView(APIView):
     permission_classes = []
 
-    QUESTIONS_PER_PAGE = 2
+    QUESTIONS_PER_PAGE = 5
 
     def get(self, request, page=None):
         questions = Question.objects.all().values("id", "title")
