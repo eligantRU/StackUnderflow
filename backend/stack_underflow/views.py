@@ -46,7 +46,7 @@ class QuestionPaginatorApiView(APIView):
     QUESTIONS_PER_PAGE = 5
 
     def get(self, request, page=None):
-        questions = Question.objects.all().values("id", "title")
+        questions = Question.objects.all().values("id", "title").order_by("-date")
         paginator = Paginator(questions, self.QUESTIONS_PER_PAGE)
 
         if page is None:

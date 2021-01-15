@@ -11,6 +11,7 @@ class Question(Model):
     owner_id = ForeignKey(User, on_delete=SET_NULL, null=True)
     title = CharField(max_length=100)
     description = TextField(blank=True)
+    date = DateTimeField(editable=False, default=now)
 
 
 class Comment(Model):
