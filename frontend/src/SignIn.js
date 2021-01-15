@@ -9,9 +9,8 @@ import "./css/SignForm.scss";
 export default function SignIn(props) {
     const dispatch = useDispatch();
     const loginDispatch = useCallback(
-        (access, refresh) => dispatch({
+        (refresh) => dispatch({
             type: SIGN_IN,
-            access: access,
             refresh: refresh,
         }),
         [dispatch],
