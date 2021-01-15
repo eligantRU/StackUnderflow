@@ -5,8 +5,8 @@ from rest_framework.views import APIView
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from django.core.paginator import Paginator
 
-from .models import User, Question
-from .serializers import UserSerializer, QuestionSerializer
+from .models import User, Question, Comment
+from .serializers import UserSerializer, QuestionSerializer, CommentSerializer
 
 
 class UserRegistrationApiView(APIView):
@@ -55,3 +55,23 @@ class QuestionPaginatorApiView(APIView):
             })
         page = paginator.page(page)
         return Response(page.object_list)
+
+
+class CommentApiView(APIView):
+    permission_classes = []
+
+    def get(self, request, question_id):
+        comments = Comment.objects.all().filter(question_id=question_id).values("owner_id__username", "text").order_by("date")
+        return Response(comments)
+
+    @method_decorator(login_required)
+    def post(self, request, question_id):
+        data = request.data.copy()
+        data["owner_id"] = User.objects.all().filter(username=request.user.username).values_list("id")[0][0]
+        data["question_id"] = question_id
+
+        serializer = CommentSerializer(data=data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        serializer.save()
+        return Response(serializer.data, status=HTTP_201_CREATED)
