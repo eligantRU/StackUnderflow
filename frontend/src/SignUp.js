@@ -1,15 +1,25 @@
-import {useState, useRef} from "react";
+import {useState, useRef, useCallback} from "react";
 import {Redirect} from "react-router";
-import {useSelector} from "react-redux";
-import {signUp} from "./utils/credentials";
+import {useDispatch, useSelector} from "react-redux";
+import {signUp, signIn} from "./utils/credentials";
 
 import "./css/SignForm.scss";
+import {SIGN_IN} from "./redux/actionTypes";
 
 export default function SignUp(props) {
     const [nameHint, setNameHint] = useState(null);
     const [emailHint, setEmailHint] = useState(null);
     const [notice, setNotice] = useState(null);
     const refreshToken = useSelector((state) =>  state.credentialsReducer.refresh);
+
+    const dispatch = useDispatch();
+    const loginDispatch = useCallback(
+        (refresh) => dispatch({
+            type: SIGN_IN,
+            refresh: refresh,
+        }),
+        [dispatch],
+    );
 
     const [nameEl, emailEl, passwordEl] = [useRef(null), useRef(null), useRef(null)];
     return (
@@ -31,9 +41,9 @@ export default function SignUp(props) {
                             {
                                 throw response;
                             }
-                            setNotice("Succeed!");
-                            setNameHint(null);
-                            setEmailHint(null);
+
+                            signIn(name, password)
+                                .then(({access, refresh}) => loginDispatch(refresh), console.warn);
                         })
                         .catch((response) => response.json())
                         .then((response) => {
