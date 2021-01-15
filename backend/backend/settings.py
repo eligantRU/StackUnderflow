@@ -5,7 +5,8 @@ from .utils import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = '&m@q_x1bh8=j-+qhgu(8epi+-7bh9r&d06-^2z5q1kkkn$l%0_'  # TODO:
+django_conf = config("config.ini", "django")
+SECRET_KEY = django_conf["secret_key"]
 
 
 DEBUG = True
@@ -58,18 +59,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
-conf = config("config.ini", "postgresql")
+db_conf = config("config.ini", "postgresql")
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': conf["dbname"],
-        'USER': conf["user"],
-        'PASSWORD': conf["password"],
-        'HOST': conf["host"],
-        'PORT': conf["port"],
+        'NAME': db_conf["dbname"],
+        'USER': db_conf["user"],
+        'PASSWORD': db_conf["password"],
+        'HOST': db_conf["host"],
+        'PORT': db_conf["port"],
     }
 }
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
