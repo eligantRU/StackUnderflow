@@ -9,6 +9,7 @@ import {SIGN_IN} from "./redux/actionTypes";
 export default function SignUp(props) {
     const [nameHint, setNameHint] = useState(null);
     const [emailHint, setEmailHint] = useState(null);
+    const [passwordHint, setPasswordHint] = useState(null);
     const [notice, setNotice] = useState(null);
     const refreshToken = useSelector((state) =>  state.credentialsReducer.refresh);
 
@@ -29,6 +30,7 @@ export default function SignUp(props) {
             <input type="email" ref={emailEl} className="form-control" placeholder="Email" required="" autoFocus="" />
             {emailHint && <span className="text-danger">{emailHint}</span>}
             <input type="password" ref={passwordEl} className="form-control" placeholder="Password" required="" />
+            {passwordHint && <span className="text-danger">{passwordHint}</span>}
             <div className="w-100 btn btn-lg btn-primary btn-block" tabIndex="0"
                 onClick={() => {
                     const name = nameEl.current.value;
@@ -51,6 +53,7 @@ export default function SignUp(props) {
                                 setNotice(null);
                                 setNameHint((response["username"] || [null])[0]);
                                 setEmailHint((response["email"] || [null][0]));
+                                setPasswordHint((response["password"] || [null][0]));
                             }
                         });
                 }}
