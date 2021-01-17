@@ -22,10 +22,9 @@ export default function AskQuestion(props) {
         return <div className="alert alert-warning">Only signed in users can ask their questions.</div>;
     }
 
-    const [titleId] = ["questionTitle"];
     return (
         <>
-            <input type="text" id={titleId} className="w-50 form-control" placeholder="Title" ref={titleEl} required="" />
+            <input type="text" className="w-50 form-control" placeholder="Title" ref={titleEl} required="" />
             {titleHint && <span className="text-danger">{titleHint}</span>}
             <RichTextEditor onUpdate={setDescription} />
             <div className="btn btn-lg btn-primary btn-block"
