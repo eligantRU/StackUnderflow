@@ -1,7 +1,6 @@
 import {SIGN_IN, SIGN_OUT} from "../actionTypes";
 
 const STORAGE_KEYS = {
-  ACCESS_TOKEN: "access",
   REFRESH_TOKEN: "refresh",
 };
 

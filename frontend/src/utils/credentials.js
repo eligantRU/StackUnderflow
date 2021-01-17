@@ -34,7 +34,7 @@ export function signUp(username, password, email) {
     formData.append("password", password);
     formData.append("email", email);
 
-    return fetch("/api/users/register/", {
+    return fetch("/api/users/", {
         method: "POST",
         body: formData,
     });
