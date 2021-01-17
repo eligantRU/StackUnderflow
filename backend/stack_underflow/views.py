@@ -25,8 +25,8 @@ class QuestionApiView(APIView):
     permission_classes = []
 
     def get(self, request, question_id):
-        questions = Question.objects.all().filter(id=question_id).values("title", "description", "owner_id", "owner_id__username")
-        return Response(questions)
+        question = Question.objects.all().filter(id=question_id).values("title", "description", "owner_id", "owner_id__username")[0]
+        return Response(question)
 
     @method_decorator(login_required)
     def post(self, request, question_id=None):

@@ -14,7 +14,7 @@ export default function Question(props) {
     const [comments, setComments] = useState(null);
     const [answer, setAnswer] = useState(null);
     const [answersPassed, setAnswersPassed] = useState(0);
-    useMemo(() => getQuestion(questionId).then((question) => setQuestion(question[0])).catch(console.warn), [questionId]);
+    useMemo(() => getQuestion(questionId).then((question) => setQuestion(question)).catch(console.warn), [questionId]);
     useMemo(() => getAnswers(questionId).then(setComments).catch(console.warn), [questionId, answersPassed]);
 
     const refreshToken = useSelector((state) =>  state.credentialsReducer.refresh);
