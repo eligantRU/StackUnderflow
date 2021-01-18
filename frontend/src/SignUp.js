@@ -10,7 +10,7 @@ export default function SignUp(props) {
     const [nameHint, setNameHint] = useState(null);
     const [emailHint, setEmailHint] = useState(null);
     const [passwordHint, setPasswordHint] = useState(null);
-    const [notice, setNotice] = useState(null);
+
     const refreshToken = useSelector((state) =>  state.credentialsReducer.refresh);
 
     const dispatch = useDispatch();
@@ -38,28 +38,17 @@ export default function SignUp(props) {
                     const password = passwordEl.current.value;
 
                     signUp(name, password, email)
-                        .then((response) => {
-                            if (!response.ok)
-                            {
-                                throw response;
-                            }
-
-                            signIn(name, password)
-                                .then(({access, refresh}) => loginDispatch(refresh), console.warn);
-                        })
-                        .catch((response) => response.json())
-                        .then((response) => {
-                            if (response) {
-                                setNotice(null);
+                        .then(
+                            () => signIn(name, password).then(loginDispatch, console.warn),
+                            (response) => {
                                 setNameHint((response["username"] || [null])[0]);
                                 setEmailHint((response["email"] || [null][0]));
                                 setPasswordHint((response["password"] || [null][0]));
                             }
-                        });
+                        ).catch(console.warn);
                 }}
                 >Sign up</div>
             {refreshToken && <Redirect to="/" />}
-            {notice && <div className="alert alert-success">{notice}</div>}
         </form>
     );
 }

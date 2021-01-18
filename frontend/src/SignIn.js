@@ -30,8 +30,10 @@ export default function SignIn(props) {
                     const password = passwordEl.current.value;
 
                     signIn(username, password)
-                        .then(({access, refresh}) => loginDispatch(refresh))
-                        .catch((ex) => setWarning("Invalid login/password"));
+                        .then(
+                            loginDispatch,
+                            (ex) => setWarning("Invalid login/password")
+                        );
                    }}
                 >Sign in</div>
             {refreshToken && <Redirect to="/" />}

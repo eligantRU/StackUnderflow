@@ -52,13 +52,14 @@ export default function Account(props) {
                             oldPassword: oldPassword || undefined,
                             newPassword: newPassword || undefined,
                         }))
-                        .then((response) => {
-                            window.location.reload(); // TODO: looks ugly
-                        }, (response) => {
-                            setEmailHint((response["email"] || [null])[0]);
-                            setOldPasswordHint((response["old_password"] || [null])[0]);
-                            setNewPasswordHint((response["password"] || [null])[0]);
-                        })
+                        .then(
+                            () => window.location.reload(), // TODO: looks ugly
+                            (response) => {
+                                setEmailHint((response["email"] || [null])[0]);
+                                setOldPasswordHint((response["old_password"] || [null])[0]);
+                                setNewPasswordHint((response["password"] || [null])[0]);
+                            }
+                        ).catch(console.warn);
                    }}
                 >Update</div>
         </div>

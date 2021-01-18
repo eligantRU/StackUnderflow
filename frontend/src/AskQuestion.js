@@ -29,21 +29,13 @@ export default function AskQuestion(props) {
             <div className="btn btn-lg btn-primary btn-block"
                 onClick={() => {
                     withRefresh()
-                        .then((access) => askQuestion(titleEl.current.value, description, access))
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw response;
-                            }
-                            return response.json();
-                        })
-                        .then((response) => setAnswerId(response["id"]))
-                        .catch((response) => response.json())
-                        .then((response) => {
-                            if (response) {
+                        .then((access) => askQuestion(titleEl.current.value, description, access), console.warn)
+                        .then(
+                            (response) => setAnswerId(response["id"]),
+                            (response) => {
                                 setTitleHint((response["title"] || [null])[0]);
                             }
-                        })
-                        .catch(console.warn);
+                        ).catch(console.warn);
                 }}
                 >Ask the question</div>
             {answerId && <Redirect to={`/question/${answerId}`} />}

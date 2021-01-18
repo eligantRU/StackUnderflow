@@ -7,24 +7,12 @@ export function signIn(username, password) {
         method: "POST",
         body: formData,
     })
-        .then((response) => {
-            if (!response.ok)
-            {
-                throw new Error();
+        .then(async (response) => {
+            const json = await response.json();
+            if (!response.ok) {
+                throw await json;
             }
-            return response;
-        })
-        .then((response) => response.json())
-        .then((response) => {
-            const [access, refresh] = [response["access"], response["refresh"]];
-            if (!access || !refresh)
-            {
-                throw new Error();
-            }
-            return {
-                access: access,
-                refresh: refresh,
-            };
+            return json["refresh"];
         });
 }
 
@@ -37,7 +25,14 @@ export function signUp(username, password, email) {
     return fetch("/api/users/", {
         method: "POST",
         body: formData,
-    });
+    })
+        .then(async (response) => {
+            if (!response.ok) {
+                throw await response.json();
+            }
+        }, async (response) => {
+            throw await response.json()
+        });
 }
 
 export function refresh(refresh, logOut) {
@@ -48,14 +43,13 @@ export function refresh(refresh, logOut) {
         method: "POST",
         body: formData,
     })
-        .then((response) => {
+        .then(async (response) => {
             if (response.status === 401) {
                 throw new Error("Refresh-token has been expired");
             }
-            return response;
+            const json = await response.json();
+            return json["access"];
         })
-        .then((response) => response.json())
-        .then((response) => response["access"])
         .catch((ex) => {
             logOut();
             throw ex;
@@ -69,7 +63,8 @@ export function getCurrentUserInfo(access) {
     return fetch("/api/users/", {
         method: "GET",
         headers: headers,
-    }).then((response) => response.json());
+    })
+        .then((response) => response.json());
 }
 
 export function updateCurrentUserInfo(access, {email, oldPassword, newPassword}) {
@@ -85,12 +80,13 @@ export function updateCurrentUserInfo(access, {email, oldPassword, newPassword})
         method: "PUT",
         headers: headers,
         body: formData,
-    }).then((response) => {
-        if (response.status === 400) {
-            throw response;
-        }
-        return response.json();
-    }).catch(async (response) => {
-        throw await response.json();
-    });
+    })
+        .then((response) => {
+            if (!response.ok || (response.status === 400)) {
+                throw response;
+            }
+            return response.json();
+        }).catch(async (response) => {
+            throw await response.json();
+        });
 }

@@ -4,17 +4,13 @@ import {Link, useParams} from "react-router-dom";
 
 import Pagination from "./Pagination";
 
-export default function Questions(props) { // TODO: useEffect-preloader
+export default function Questions(props) {
     const [pagesCount, setPagesCount] = useState(0);
-    useEffect(() => {
-        getQuestionsCount().then(setPagesCount, console.warn);
-    }, []);
+    useEffect(() => void(getQuestionsCount().then(setPagesCount, console.warn)), []);
 
     const {page} = useParams();
     const [questions, setQuestions] = useState([]);
-    useEffect(() => {
-        getQuestions(page || 1).then(setQuestions, console.warn);
-    }, [page]);
+    useEffect(() => void(getQuestions(page || 1).then(setQuestions, console.warn)), [page]);
 
     return (
         <>

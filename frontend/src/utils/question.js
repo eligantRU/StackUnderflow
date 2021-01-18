@@ -1,7 +1,9 @@
-export function getQuestionsCount(page) {
+export function getQuestionsCount() {
     return fetch(`/api/questions/page/`)
-        .then((response) => response.json())
-        .then((response) => response["count"]);
+        .then(async (response) => {
+            const json = await response.json();
+            return json["count"];
+        });
 }
 
 export function getQuestions(page) {
@@ -27,5 +29,12 @@ export function askQuestion(title, description, access) {
         method: "POST",
         headers: headers,
         body: formData,
+    }).then(async (response) => {
+        if (!response.ok) {
+            throw await response.json();
+        }
+        return response.json();
+    }, async (response) => {
+        throw await response.json();
     });
 }

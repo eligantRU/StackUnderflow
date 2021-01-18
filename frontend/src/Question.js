@@ -3,7 +3,7 @@ import {Redirect} from "react-router";
 import RichTextEditor from "./RichTextEditor";
 
 import {getQuestion} from "./utils/question";
-import {getAnswers, answerTheQuestion} from "./utils/comment";
+import {getAnswers, answerTheQuestion} from "./utils/answer";
 import {useMemo, useState} from "react";
 import useRefresh from "./hooks/useRefresh";
 import {useSelector} from "react-redux";
@@ -60,18 +60,10 @@ export default function Question(props) {
                                 onClick={() => {
                                     withRefresh()
                                         .then((access) => answerTheQuestion(questionId, answer, access))
-                                        .then((response) => {
-                                            if (!response.ok) {
-                                                throw response;
-                                            }
-                                        })
                                         .then(() => {
                                             setAnswersPassed((value) => value + 1);
-
                                         })
-                                        .catch((response) => {
-                                            console.warn(response);
-                                        });
+                                        .catch(console.warn);
                                 }}
                             >Answer it!</div>
                         </div>)
