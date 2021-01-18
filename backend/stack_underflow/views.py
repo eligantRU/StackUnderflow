@@ -1,16 +1,23 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.contrib import messages  # TODO:
 from django.utils.decorators import method_decorator
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from django.core.paginator import Paginator
 
 from .models import User, Question, Comment
 from .serializers import UserSerializer, QuestionSerializer, CommentSerializer
 
 
-class UserRegistrationApiView(APIView):
+class UserApiView(APIView):
     permission_classes = []
+
+    @method_decorator(login_required)
+    def get(self, request):
+        user = User.objects.all().filter(username=request.user.username).values("email")[0]
+        return Response(user)
 
     def post(self, request):
         serializer = UserSerializer(data=request.data)
@@ -19,6 +26,30 @@ class UserRegistrationApiView(APIView):
 
         serializer.save()
         return Response(serializer.data, status=HTTP_201_CREATED)
+
+    @method_decorator(login_required)
+    def put(self, request, *args, **kwargs):
+        data = request.data.copy()
+        if data.get("new_password", ""):
+            if data.get("old_password", ""):
+                if request.user.check_password(data["old_password"]):
+                    data["password"] = data["new_password"]
+                else:
+                    return Response({
+                        "old_password": ["Invalid password"],
+                    }, status=HTTP_400_BAD_REQUEST)
+            else:
+                return Response({
+                    "old_password": ["Password (old) field cannot be empty"],
+                }, status=HTTP_400_BAD_REQUEST)
+
+        serializer = UserSerializer(request.user, data=data, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+        user = serializer.save()
+        if data.get("password", ""):
+            update_session_auth_hash(request, user)
+        return Response(serializer.data, status=HTTP_200_OK)
 
 
 class QuestionApiView(APIView):

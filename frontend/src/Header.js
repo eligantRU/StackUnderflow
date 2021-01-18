@@ -27,6 +27,7 @@ export default function Header(props) { // TODO: https://getbootstrap.com header
                 <div className="navbar-nav ms-lg-auto">
                     {!refreshToken && <Link className="nav-link" to="/sign_in">Sign in</Link>}
                     {!refreshToken && <Link className="nav-link" to="/sign_up">Sign up</Link>}
+                    {refreshToken && <Link className="nav-link" to="/account">Account</Link>}
                     {refreshToken && <Link className="nav-link" to="/" onClick={logoutDispatch}>Sign out</Link>}
                 </div>
             </Navbar.Collapse>

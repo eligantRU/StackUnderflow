@@ -3,7 +3,7 @@ import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {signUp, signIn} from "./utils/credentials";
 
-import "./css/SignForm.scss";
+import "./css/Form.scss";
 import {SIGN_IN} from "./redux/actionTypes";
 
 export default function SignUp(props) {
@@ -24,7 +24,7 @@ export default function SignUp(props) {
 
     const [nameEl, emailEl, passwordEl] = [useRef(null), useRef(null), useRef(null)];
     return (
-        <form className="sign-form">
+        <form className="form">
             <input type="text" ref={nameEl} className="form-control" placeholder="Name" required="" />
             {nameHint && <span className="text-danger">{nameHint}</span>}
             <input type="email" ref={emailEl} className="form-control" placeholder="Email" required="" autoFocus="" />

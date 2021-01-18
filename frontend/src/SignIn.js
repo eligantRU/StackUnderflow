@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {SIGN_IN} from "./redux/actionTypes";
 import {signIn} from "./utils/credentials";
 
-import "./css/SignForm.scss";
+import "./css/Form.scss";
 
 export default function SignIn(props) {
     const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default function SignIn(props) {
 
     const [nameEl, passwordEl] = [useRef(null), useRef(null)];
     return (
-        <form className="sign-form">
+        <form className="form">
             <input type="text" ref={nameEl} className="form-control" placeholder="Name" required="" autoFocus="" />
             <input type="password" ref={passwordEl} className="form-control" placeholder="Password" required="" />
             <div className="w-100 btn btn-lg btn-primary btn-block" tabIndex="0"

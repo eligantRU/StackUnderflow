@@ -17,8 +17,7 @@ export default function AskQuestion(props) {
     const withRefresh = useRefresh();
 
     const refreshToken = useSelector((state) =>  state.credentialsReducer.refresh);
-    if (!refreshToken)
-    {
+    if (!refreshToken) {
         return <div className="alert alert-warning">Only signed in users can ask their questions.</div>;
     }
 

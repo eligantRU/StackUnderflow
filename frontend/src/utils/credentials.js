@@ -61,3 +61,36 @@ export function refresh(refresh, logOut) {
             throw ex;
         });
 }
+
+export function getCurrentUserInfo(access) {
+    const headers = new Headers();
+    headers.append("Authorization", `Bearer ${access}`);
+
+    return fetch("/api/users/", {
+        method: "GET",
+        headers: headers,
+    }).then((response) => response.json());
+}
+
+export function updateCurrentUserInfo(access, {email, oldPassword, newPassword}) {
+    const headers = new Headers();
+    headers.append("Authorization", `Bearer ${access}`);
+
+    const formData = new FormData();
+    email && formData.append("email", email);
+    oldPassword && formData.append("old_password", oldPassword);
+    newPassword && formData.append("new_password", newPassword);
+
+    return fetch("/api/users/", {
+        method: "PUT",
+        headers: headers,
+        body: formData,
+    }).then((response) => {
+        if (response.status === 400) {
+            throw response;
+        }
+        return response.json();
+    }).catch(async (response) => {
+        throw await response.json();
+    });
+}

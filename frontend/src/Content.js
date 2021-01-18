@@ -5,6 +5,7 @@ import AskQuestion from "./AskQuestion";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import Question from "./Question";
+import Account from "./Account";
 
 import "./css/Content.scss";
 
@@ -26,6 +27,9 @@ export default function Content(props) {
                 </Route>
                 <Route path="/questions/:page">
                     <Questions />
+                </Route>
+                <Route path="/account">
+                    <Account />
                 </Route>
                 <Route path="/">
                     <Questions />
