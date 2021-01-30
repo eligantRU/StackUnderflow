@@ -1,5 +1,5 @@
 from django.urls import path
-from stack_underflow import views  # TODO:
+from core import views  # TODO:
 from django.contrib import admin
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 

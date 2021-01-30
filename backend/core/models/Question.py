@@ -9,4 +9,4 @@ class Question(Model):
     title = CharField(max_length=100)
     description = TextField(blank=True)
     date = DateTimeField(editable=False, default=now)
-    resolved_answer_id = ForeignKey("stack_underflow.Comment", on_delete=SET_NULL, null=True)
+    resolved_answer_id = ForeignKey("core.Comment", on_delete=SET_NULL, null=True)

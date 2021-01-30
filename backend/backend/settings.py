@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'stack_underflow.apps.UserConfig',
+    'core.apps.CoreConfig',
 ]
 
 MIDDLEWARE = [
@@ -96,7 +96,7 @@ REST_FRAMEWORK = {
     ],
 }
 
-AUTH_USER_MODEL = 'stack_underflow.User'
+AUTH_USER_MODEL = 'core.User'
 
 
 LANGUAGE_CODE = 'en-us'

@@ -9,7 +9,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stack_underflow', '0002_question'),
+        ('core', '0002_question'),
     ]
 
     operations = [
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('text', models.TextField()),
                 ('date', models.DateTimeField(default=django.utils.timezone.now, editable=False)),
                 ('owner_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
-                ('question_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='stack_underflow.question')),
+                ('question_id', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='core.question')),
             ],
         ),
     ]

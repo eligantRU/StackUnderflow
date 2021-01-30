@@ -7,7 +7,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stack_underflow', '0003_comment'),
+        ('core', '0003_comment'),
     ]
 
     operations = [

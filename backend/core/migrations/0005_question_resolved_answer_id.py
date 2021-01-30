@@ -7,13 +7,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('stack_underflow', '0004_question_date'),
+        ('core', '0004_question_date'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='question',
             name='resolved_answer_id',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='stack_underflow.comment'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='core.comment'),
         ),
     ]
