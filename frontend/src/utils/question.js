@@ -16,7 +16,6 @@ export function getQuestion(id) {
         .then((response) => response.json());
 }
 
-
 export function askQuestion(title, description, access) {
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${access}`);
@@ -37,4 +36,23 @@ export function askQuestion(title, description, access) {
     }, async (response) => {
         throw await response.json();
     });
+}
+
+export function markQuestionAsResolved(questionId, answerId, access) {
+    const headers = new Headers();
+    headers.append("Authorization", `Bearer ${access}`);
+
+    const formData = new FormData();
+    formData.append("resolved_answer_id", answerId);
+
+    return fetch(`/api/questions/${questionId}/`, {
+            method: "PUT",
+            headers: headers,
+            body: formData,
+        })
+        .then(async (response) => {
+            if (response.status !== 200) {
+                throw await response.json();
+            }
+        });
 }

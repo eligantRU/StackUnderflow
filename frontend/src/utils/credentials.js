@@ -12,7 +12,10 @@ export function signIn(username, password) {
             if (!response.ok) {
                 throw await json;
             }
-            return json["refresh"];
+            return {
+                access: json["access"],
+                refresh: json["refresh"],
+            };
         });
 }
 

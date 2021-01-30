@@ -1,7 +1,7 @@
 import {useState, useRef, useCallback} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {signUp, signIn} from "./utils/credentials";
+import {signUp, signIn, getCurrentUserInfo} from "./utils/credentials";
 
 import "./css/Form.scss";
 import {SIGN_IN} from "./redux/actionTypes";
@@ -15,9 +15,10 @@ export default function SignUp(props) {
 
     const dispatch = useDispatch();
     const loginDispatch = useCallback(
-        (refresh) => dispatch({
+        (refresh, id) => dispatch({
             type: SIGN_IN,
             refresh: refresh,
+            id: id,
         }),
         [dispatch],
     );
@@ -39,7 +40,11 @@ export default function SignUp(props) {
 
                     signUp(name, password, email)
                         .then(
-                            () => signIn(name, password).then(loginDispatch, console.warn),
+                            async () => {
+                                const {access, refresh} = await signIn(name, password);
+                                const userInfo = await getCurrentUserInfo(access);
+                                loginDispatch(refresh, parseInt(userInfo.id, 10));
+                            },
                             (response) => {
                                 setNameHint((response["username"] || [null])[0]);
                                 setEmailHint((response["email"] || [null][0]));

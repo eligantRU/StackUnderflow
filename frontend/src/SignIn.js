@@ -2,16 +2,17 @@ import {useCallback, useState, useRef} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {SIGN_IN} from "./redux/actionTypes";
-import {signIn} from "./utils/credentials";
+import {getCurrentUserInfo, signIn} from "./utils/credentials";
 
 import "./css/Form.scss";
 
 export default function SignIn(props) {
     const dispatch = useDispatch();
     const loginDispatch = useCallback(
-        (refresh) => dispatch({
+        (refresh, id) => dispatch({
             type: SIGN_IN,
             refresh: refresh,
+            id: id,
         }),
         [dispatch],
     );
@@ -31,7 +32,10 @@ export default function SignIn(props) {
 
                     signIn(username, password)
                         .then(
-                            loginDispatch,
+                            async ({access, refresh}) => {
+                                const userInfo = await getCurrentUserInfo(access);
+                                loginDispatch(refresh, parseInt(userInfo.id, 10));
+                            },
                             (ex) => setWarning("Invalid login/password")
                         );
                    }}

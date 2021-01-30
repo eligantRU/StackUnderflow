@@ -4,6 +4,7 @@ export function getAnswers(questionId) {
             const comments = await response.json();
             return comments.map((comment) => {
                 return {
+                    "id": comment["id"],
                     "username": comment["owner_id__username"],
                     "text": comment["text"],
                 };

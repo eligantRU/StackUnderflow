@@ -27,7 +27,7 @@ class UserSerializer(ModelSerializer):
 class QuestionSerializer(ModelSerializer):
     class Meta:
         model = Question
-        fields = ["id", "owner_id", "title", "description"]
+        fields = ["id", "owner_id", "title", "description", "resolved_answer_id"]
 
 
 class CommentSerializer(ModelSerializer):
