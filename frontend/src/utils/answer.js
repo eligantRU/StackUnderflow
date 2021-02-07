@@ -10,7 +10,7 @@ export function getAnswers(questionId, access) {
             return comments.map((comment) => {
                 return {
                     "id": comment["id"],
-                    "username": comment["owner_id__username"],
+                    "username": comment["username"],
                     "text": comment["text"],
                     "rating": comment["rating"],
                     "my_rate": comment["my_rate"],
