@@ -14,4 +14,5 @@ urlpatterns = [
     path('api/questions/page/<int:page>', views.QuestionPaginatorApiView.as_view()),
     path('api/questions/page/', views.QuestionPaginatorApiView.as_view()),
     path('api/comments/question/<int:question_id>', views.CommentApiView.as_view()),
+    path('api/answers/rating', views.CommentRatingApiView.as_view()),
 ]

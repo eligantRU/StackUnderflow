@@ -1,6 +1,6 @@
 from django.contrib.auth.hashers import make_password
 from rest_framework.serializers import ModelSerializer
-from .models import User, Question, Comment
+from .models import User, Question, Comment, Rating
 
 
 class UserSerializer(ModelSerializer):
@@ -34,3 +34,9 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = ["id", "owner_id", "question_id", "text"]
+
+
+class AnswerRatingSerializer(ModelSerializer):
+    class Meta:
+        model = Rating
+        fields = ["origin", "target", "type"]
