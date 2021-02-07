@@ -1,10 +1,9 @@
 from django.contrib import admin
 
-from .models import Question, Comment, User
-from .models.rating_system import Rating
+from .models import User, Question, Answer, AnswerRating
 
 
-admin.site.register(Question)
-admin.site.register(Comment)
 admin.site.register(User)
-admin.site.register(Rating)
+admin.site.register(Question)
+admin.site.register(Answer)
+admin.site.register(AnswerRating)

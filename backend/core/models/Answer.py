@@ -5,8 +5,8 @@ from .User import User
 from .Question import Question
 
 
-class Comment(Model):  # TODO: Comment -> Answer
-    owner_id = ForeignKey(User, on_delete=SET_NULL, null=True)
-    question_id = ForeignKey(Question, on_delete=CASCADE, null=True)
+class Answer(Model):
+    owner = ForeignKey(User, on_delete=SET_NULL, null=True)
+    question = ForeignKey(Question, on_delete=CASCADE, null=True)
     text = TextField(blank=False)
     date = DateTimeField(editable=False, default=now)

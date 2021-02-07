@@ -64,9 +64,9 @@ export function getCurrentUserInfo(access) {
     headers.append("Authorization", `Bearer ${access}`);
 
     return fetch("/api/users/", {
-        method: "GET",
-        headers: headers,
-    })
+            method: "GET",
+            headers: headers,
+        })
         .then((response) => response.json());
 }
 
@@ -80,10 +80,10 @@ export function updateCurrentUserInfo(access, {email, oldPassword, newPassword})
     newPassword && formData.append("new_password", newPassword);
 
     return fetch("/api/users/", {
-        method: "PUT",
-        headers: headers,
-        body: formData,
-    })
+            method: "PUT",
+            headers: headers,
+            body: formData,
+        })
         .then((response) => {
             if (!response.ok || (response.status === 400)) {
                 throw response;

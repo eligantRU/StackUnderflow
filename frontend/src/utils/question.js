@@ -1,5 +1,7 @@
+const QUESTIONS_PER_PAGE = 5; // TODO: common config (useContext maybe)
+
 export function getQuestionsCount() {
-    return fetch(`/api/questions/page/`)
+    return fetch(`/api/questions/page/?questions_per_page=${QUESTIONS_PER_PAGE}`)
         .then(async (response) => {
             const json = await response.json();
             return json["count"];
@@ -7,7 +9,7 @@ export function getQuestionsCount() {
 }
 
 export function getQuestions(page) {
-    return fetch(`/api/questions/page/${page}`)
+    return fetch(`/api/questions/page/${page}?questions_per_page=${QUESTIONS_PER_PAGE}`)
         .then((response) => response.json());
 }
 
@@ -25,17 +27,18 @@ export function askQuestion(title, description, access) {
     formData.append("description", description);
 
     return fetch("/api/questions/", {
-        method: "POST",
-        headers: headers,
-        body: formData,
-    }).then(async (response) => {
-        if (!response.ok) {
+            method: "POST",
+            headers: headers,
+            body: formData,
+        })
+        .then(async (response) => {
+            if (!response.ok) {
+                throw await response.json();
+            }
+            return response.json();
+        }, async (response) => {
             throw await response.json();
-        }
-        return response.json();
-    }, async (response) => {
-        throw await response.json();
-    });
+        });
 }
 
 export function markQuestionAsResolved(questionId, answerId, access) {

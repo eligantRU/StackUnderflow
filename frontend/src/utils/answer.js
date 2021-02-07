@@ -3,8 +3,8 @@ export function getAnswers(questionId, access) {
     access && headers.append("Authorization", `Bearer ${access}`);
 
     return fetch(`/api/comments/question/${questionId}`, {
-        headers: headers,
-    })
+            headers: headers,
+        })
         .then(async (response) => {
             const comments = await response.json();
             return comments.map((comment) => {

@@ -5,8 +5,9 @@ from .User import User
 
 
 class Question(Model):
-    owner_id = ForeignKey(User, on_delete=SET_NULL, null=True)
+    owner = ForeignKey(User, on_delete=SET_NULL, null=True)
     title = CharField(max_length=100)
     description = TextField(blank=True)
     date = DateTimeField(editable=False, default=now)
-    resolved_answer_id = ForeignKey("core.Comment", on_delete=SET_NULL, null=True)
+    resolved_answer = ForeignKey("core.Answer", on_delete=SET_NULL, null=True,
+                                 related_name="+")
