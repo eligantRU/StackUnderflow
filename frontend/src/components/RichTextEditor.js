@@ -4,7 +4,7 @@ import {Editor} from "react-draft-wysiwyg"
 import draftToHtml from "draftjs-to-html";
 
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"
-import "./css/RichTextEditor.scss"
+import "../css/RichTextEditor.scss"
 
 export default function RichTextEditor(props) {
     const [state, setState] = useState(() => EditorState.createEmpty());

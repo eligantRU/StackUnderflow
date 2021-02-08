@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-import "./css/Pagination.scss";
+import "../css/Pagination.scss";
 
 function getQuestionPageUrl(page) {
     return `/questions/${page}`;

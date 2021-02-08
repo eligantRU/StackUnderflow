@@ -1,7 +1,7 @@
 import {useCallback} from "react";
 import {useSelector, useDispatch} from "react-redux";
 import {SIGN_OUT} from "../redux/actionTypes";
-import {refresh} from "../utils/credentials";
+import {refresh} from "../api/credentials";
 
 export default function useRefresh() {
     const dispatch = useDispatch();

@@ -1,6 +1,6 @@
-import {askQuestion} from "./utils/question";
+import {askQuestion} from "./api/questions";
 
-import RichTextEditor from "./RichTextEditor";
+import RichTextEditor from "./components/RichTextEditor";
 import {Redirect} from "react-router";
 import {useState, useRef} from "react";
 import {useSelector} from "react-redux";

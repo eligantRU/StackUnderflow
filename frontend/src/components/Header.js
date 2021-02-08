@@ -2,7 +2,7 @@ import Navbar from "react-bootstrap/Navbar"; // TODO: extra dependency
 import {Link} from "react-router-dom";
 import {useCallback} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {SIGN_OUT} from "./redux/actionTypes";
+import {SIGN_OUT} from "../redux/actionTypes";
 
 export default function Header(props) { // TODO: https://getbootstrap.com header styling ?
     const dispatch = useDispatch();

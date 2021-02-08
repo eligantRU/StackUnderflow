@@ -1,8 +1,8 @@
-import {getQuestionsCount, getQuestions} from "./utils/question";
+import {getQuestionsCount, getQuestions} from "./api/questions";
 import {useState, useEffect} from "react";
 import {Link, useParams} from "react-router-dom";
 
-import Pagination from "./Pagination";
+import Pagination from "./components/Pagination";
 
 export default function Questions(props) {
     const [pagesCount, setPagesCount] = useState(0);

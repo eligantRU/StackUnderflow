@@ -2,7 +2,7 @@ import {useCallback, useState, useRef} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {SIGN_IN} from "./redux/actionTypes";
-import {getCurrentUserInfo, signIn} from "./utils/credentials";
+import {getCurrentUserInfo, signIn} from "./api/credentials";
 
 import "./css/Form.scss";
 

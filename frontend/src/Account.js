@@ -2,7 +2,7 @@ import useRefresh from "./hooks/useRefresh";
 import {useSelector} from "react-redux";
 import {Redirect} from "react-router";
 import {useMemo, useRef, useState} from "react";
-import {getCurrentUserInfo, updateCurrentUserInfo} from "./utils/credentials";
+import {getCurrentUserInfo, updateCurrentUserInfo} from "./api/credentials";
 
 import "./css/Form.scss";
 

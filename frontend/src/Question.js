@@ -1,9 +1,9 @@
 import {useParams} from "react-router-dom";
 import {Redirect} from "react-router";
-import RichTextEditor from "./RichTextEditor";
+import RichTextEditor from "./components/RichTextEditor";
 
-import {getQuestion, markQuestionAsResolved} from "./utils/question";
-import {getAnswers, answerTheQuestion, changeAnswerRating} from "./utils/answer";
+import {getQuestion, markQuestionAsResolved} from "./api/questions";
+import {getAnswers, answerTheQuestion, changeAnswerRating} from "./api/answers";
 import {useMemo, useState} from "react";
 import useRefresh from "./hooks/useRefresh";
 import {useSelector} from "react-redux";

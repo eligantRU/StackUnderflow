@@ -1,7 +1,7 @@
 import {useState, useRef, useCallback} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {signUp, signIn, getCurrentUserInfo} from "./utils/credentials";
+import {signUp, signIn, getCurrentUserInfo} from "./api/credentials";
 
 import "./css/Form.scss";
 import {SIGN_IN} from "./redux/actionTypes";
